@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1400" viewBox="0 0 1900 1400">
+<rect width="100%" height="100%" fill="white"/>
+<text x="690.0" y="75" font-family="Microsoft YaHei, sans-serif" font-size="40">0–2 A 电流检测放大器原理图</text>
+<text x="537.9921875" y="124" font-family="Microsoft YaHei, sans-serif" font-size="29">U1：INA240A1PW（TSSOP-8） · 固定增益 20 V/V · 单向测量</text>
+<polyline points="120,280 550,280" fill="none" stroke="black" stroke-width="5"/>
+<rect x="550" y="250" width="180" height="60" fill="white" stroke="black" stroke-width="3"/>
+<polyline points="730,280 1680,280" fill="none" stroke="black" stroke-width="5"/>
+<circle cx="400" cy="280" r="6"/>
+<circle cx="900" cy="280" r="6"/>
+<text x="389.5" y="255" font-family="Microsoft YaHei, sans-serif" font-size="30">A</text>
+<text x="890.5" y="255" font-family="Microsoft YaHei, sans-serif" font-size="30">B</text>
+<text x="464.0" y="364" font-family="Microsoft YaHei, sans-serif" font-size="29">R1  0.05 Ω / 0.5 W / 0.1%</text>
+<polyline points="1070,190 1280,190" fill="none" stroke="black" stroke-width="3"/>
+<polyline points="1260,178 1280,190 1260,202" fill="none" stroke="black" stroke-width="3"/>
+<text x="1111.0" y="174" font-family="Microsoft YaHei, sans-serif" font-size="29">I = 0–2 A</text>
+<text x="120" y="350" font-family="Microsoft YaHei, sans-serif" font-size="25">回路端 1</text>
+<text x="1550" y="350" font-family="Microsoft YaHei, sans-serif" font-size="25">回路端 2</text>
+<text x="556.0" y="1355" font-family="Microsoft YaHei, sans-serif" font-size="25">R1 串入线圈电流通路；本图仅画检测前端，省略功率驱动与续流电路。</text>
+<polyline points="400,280 400,790 800,790" fill="none" stroke="black" stroke-width="3"/>
+<polyline points="900,280 900,455 660,455 660,630 800,630" fill="none" stroke="black" stroke-width="3"/>
+<text x="145" y="615" font-family="Microsoft YaHei, sans-serif" font-size="25">两根独立检测线</text>
+<text x="145" y="655" font-family="Microsoft YaHei, sans-serif" font-size="25">从 R1 焊盘引出</text>
+<rect x="800" y="550" width="440" height="390" fill="white" stroke="black" stroke-width="3"/>
+<text x="800" y="524" font-family="Microsoft YaHei, sans-serif" font-size="29">U1</text>
+<text x="765" y="608" font-family="Microsoft YaHei, sans-serif" font-size="23">3</text>
+<text x="820" y="638" font-family="Microsoft YaHei, sans-serif" font-size="28">IN−</text>
+<text x="765" y="768" font-family="Microsoft YaHei, sans-serif" font-size="23">2</text>
+<text x="820" y="798" font-family="Microsoft YaHei, sans-serif" font-size="28">IN+</text>
+<text x="980.0" y="716" font-family="Microsoft YaHei, sans-serif" font-size="31">G = 20</text>
+<polyline points="1060,550 1060,475 1450,475 1450,545" fill="none" stroke="black" stroke-width="3"/>
+<circle cx="1060" cy="475" r="6"/>
+<polyline points="1060,475 1060,440" fill="none" stroke="black" stroke-width="3"/>
+<polyline points="1046,455 1060,440 1074,455" fill="none" stroke="black" stroke-width="3"/>
+<text x="1130" y="461" font-family="Microsoft YaHei, sans-serif" font-size="29">+3.3 V</text>
+<text x="1020" y="528" font-family="Microsoft YaHei, sans-serif" font-size="23">5</text>
+<text x="1038" y="592" font-family="Microsoft YaHei, sans-serif" font-size="25">VS</text>
+<polyline points="1415,545 1485,545" fill="none" stroke="black" stroke-width="3"/>
+<polyline points="1415,565 1485,565" fill="none" stroke="black" stroke-width="3"/>
+<polyline points="1450,565 1450,610" fill="none" stroke="black" stroke-width="3"/>
+<polyline points="1450,610 1450,630" fill="none" stroke="black" stroke-width="3"/>
+<polyline points="1418,630 1482,630" fill="none" stroke="black" stroke-width="3"/>
+<polyline points="1429,643 1471,643" fill="none" stroke="black" stroke-width="3"/>
+<polyline points="1440,656 1460,656" fill="none" stroke="black" stroke-width="3"/>
+<text x="1520" y="552" font-family="Microsoft YaHei, sans-serif" font-size="27">C1  100 nF</text>
+<text x="1520" y="593" font-family="Microsoft YaHei, sans-serif" font-size="23">靠近 U1 的 VS / GND</text>
+<polyline points="1240,730 1640,730" fill="none" stroke="black" stroke-width="3"/>
+<polyline points="1640,713 1665,730 1640,747 1640,713" fill="none" stroke="black" stroke-width="3"/>
+<text x="1130" y="733" font-family="Microsoft YaHei, sans-serif" font-size="28">OUT</text>
+<text x="1270" y="708" font-family="Microsoft YaHei, sans-serif" font-size="23">8</text>
+<text x="1675" y="734" font-family="Microsoft YaHei, sans-serif" font-size="29">ADC_I</text>
+<text x="1425" y="803" font-family="Microsoft YaHei, sans-serif" font-size="28">约 0–2.0 V</text>
+<polyline points="1240,865 1310,865" fill="none" stroke="black" stroke-width="3"/>
+<polyline points="1300,855 1320,875" fill="none" stroke="black" stroke-width="3"/>
+<polyline points="1300,875 1320,855" fill="none" stroke="black" stroke-width="3"/>
+<text x="1160" y="864" font-family="Microsoft YaHei, sans-serif" font-size="24">NC</text>
+<text x="1260" y="846" font-family="Microsoft YaHei, sans-serif" font-size="23">1</text>
+<text x="873.0" y="918" font-family="Microsoft YaHei, sans-serif" font-size="23">GND</text>
+<text x="912" y="973" font-family="Microsoft YaHei, sans-serif" font-size="23">4</text>
+<polyline points="900,940 900,1040" fill="none" stroke="black" stroke-width="3"/>
+<text x="1013.5" y="918" font-family="Microsoft YaHei, sans-serif" font-size="23">REF1</text>
+<text x="1052" y="973" font-family="Microsoft YaHei, sans-serif" font-size="23">7</text>
+<polyline points="1040,940 1040,1040" fill="none" stroke="black" stroke-width="3"/>
+<text x="1153.5" y="918" font-family="Microsoft YaHei, sans-serif" font-size="23">REF2</text>
+<text x="1192" y="973" font-family="Microsoft YaHei, sans-serif" font-size="23">6</text>
+<polyline points="1180,940 1180,1040" fill="none" stroke="black" stroke-width="3"/>
+<polyline points="900,1040 1180,1040" fill="none" stroke="black" stroke-width="3"/>
+<circle cx="1040" cy="1040" r="6"/>
+<polyline points="1040,1040 1040,1060" fill="none" stroke="black" stroke-width="3"/>
+<polyline points="1008,1060 1072,1060" fill="none" stroke="black" stroke-width="3"/>
+<polyline points="1019,1073 1061,1073" fill="none" stroke="black" stroke-width="3"/>
+<polyline points="1030,1086 1050,1086" fill="none" stroke="black" stroke-width="3"/>
+<text x="906.5" y="1136" font-family="Microsoft YaHei, sans-serif" font-size="26">GND（与 MCU 共地）</text>
+<text x="611.0" y="1217" font-family="Microsoft YaHei, sans-serif" font-size="32">V_OUT ≈ 20 × (V_A − V_B) = 20 × I × 0.05 Ω</text>
+<text x="550.0" y="1266" font-family="Microsoft YaHei, sans-serif" font-size="26">2 A → 0.10 V 压差 → 2.0 V 输出；零点附近需考虑输出下限及失调。</text>
+</svg>

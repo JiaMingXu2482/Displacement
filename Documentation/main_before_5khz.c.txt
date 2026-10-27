@@ -1,0 +1,175 @@
+/* ###################################################################
+**     Filename    : main.c
+**     Processor   : S32K1xx
+**     Abstract    :
+**         Main module.
+**         This module contains user's application code.
+**     Settings    :
+**     Contents    :
+**         No public methods
+**
+** ###################################################################*/
+/*!
+** @file main.c
+** @version 01.00
+** @brief
+**         Main module.
+**         This module contains user's application code.
+*/         
+/*!
+**  @addtogroup main_module main module documentation
+**  @{
+*/         
+/* MODULE main */
+
+
+/* Including necessary module. Cpu.h contains other modules needed for compiling.*/
+#include "Cpu.h"
+#include "LPIT.h"
+#include "uart.h"
+#include "MAX31865.h"
+#include "displacement.h"
+#include <stdio.h>
+
+#define PT100_RREF_OHMS 430.0f
+#define TEMPERATURE_PERIOD_US 1000000U
+
+volatile uint16_t exit_code = 0U;
+
+/* User includes (#include below this line is not maintained by Processor Expert) */
+
+/*! 
+  \brief The main function for the project.
+  \details The startup initialization sequence is the following:
+ * - startup asm routine
+ * - main()
+*/
+
+int main(void)
+{
+  /*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
+  #ifdef PEX_RTOS_INIT
+    PEX_RTOS_INIT();                   /* Initialization of the selected RTOS. Macro is defined by the RTOS component. */
+  #endif
+  /*** End of Processor Expert internal initialization.                    ***/
+  CLOCK_SYS_Init(g_clockManConfigsArr, CLOCK_MANAGER_CONFIG_CNT,
+                 g_clockManCallbacksArr, CLOCK_MANAGER_CALLBACK_CNT);
+  CLOCK_SYS_UpdateConfiguration(0U, CLOCK_MANAGER_POLICY_AGREEMENT);
+  PINS_DRV_Init(NUM_OF_CONFIGURED_PINS, g_pin_mux_InitConfigArr);
+  Uart1_Init();
+
+  max31865_status_t sensorStatus = MAX31865_Init(PT100_RREF_OHMS);
+  bool sensorReady = (sensorStatus == MAX31865_OK);
+  bool displacementReady = (Displacement_Init() == STATUS_SUCCESS);
+  LPIT_Init(TEMPERATURE_PERIOD_US);
+
+  while (1) {
+    if (LPIT_HasElapsed()) {
+      max31865_measurement_t measurement = {0};
+      char message[160];
+      int length;
+
+      /* Retry next second if the sensor was disconnected or SPI failed. */
+      if (!sensorReady) {
+        sensorStatus = MAX31865_Init(PT100_RREF_OHMS);
+        sensorReady = (sensorStatus == MAX31865_OK);
+      }
+      if (sensorReady) {
+        sensorStatus = MAX31865_ReadTemperature(&measurement);
+      }
+
+      if (sensorStatus == MAX31865_OK) {
+        /* Integer formatting avoids enabling the large printf-float library. */
+        int32_t temperature = measurement.temperatureCentiC;
+        uint32_t magnitude = (uint32_t)(temperature < 0 ? -temperature : temperature);
+        length = snprintf(message, sizeof(message), "Temperature: %s%lu.%02lu C\r\n",
+                          temperature < 0 ? "-" : "",
+                          (unsigned long)(magnitude / 100U),
+                          (unsigned long)(magnitude % 100U));
+      } else if (sensorStatus == MAX31865_RTD_FAULT ||
+                 sensorStatus == MAX31865_OUT_OF_RANGE) {
+        uint8_t cycleFault;
+        max31865_status_t cycleStatus = MAX31865_RunFaultDetection(&cycleFault);
+        max31865_config_diagnostic_t diagnostic = MAX31865_GetConfigDiagnostic();
+        length = snprintf(message, sizeof(message),
+              "MAX31865 error=%u fault=0x%02X rtdreg=0x%04X raw=%u meascfg=0x%02X test=%u faultreg=0x%02X reflo=%u rtdlo=%u cfg=0x%02X bias=%u 3wire=%u\r\n",
+                          (unsigned int)sensorStatus, (unsigned int)measurement.fault,
+                          (unsigned int)measurement.rtdRegister,
+                          (unsigned int)measurement.rawRtd, (unsigned int)measurement.config,
+                          (unsigned int)cycleStatus,
+              (unsigned int)cycleFault,
+              (unsigned int)((cycleFault & 0x10U) != 0U),
+              (unsigned int)((cycleFault & 0x08U) != 0U),
+              (unsigned int)diagnostic.actual,
+              (unsigned int)((diagnostic.actual & 0x80U) != 0U),
+              (unsigned int)((diagnostic.actual & 0x10U) != 0U));
+        sensorReady = false;
+      } else if (sensorStatus == MAX31865_CONFIG_ERROR) {
+        max31865_config_diagnostic_t diagnostic = MAX31865_GetConfigDiagnostic();
+        /* No RTD/fault read took place: do not print zero placeholders as data. */
+        length = snprintf(message, sizeof(message),
+                          "MAX31865 error=2 cfg=0x%02X expected=0x%02X\r\n",
+                          (unsigned int)diagnostic.actual,
+                          (unsigned int)diagnostic.expected);
+        sensorReady = false;
+      } else {
+        length = snprintf(message, sizeof(message),
+                          "MAX31865 error=%u fault=0x%02X raw=%u\r\n",
+                          (unsigned int)sensorStatus, (unsigned int)measurement.fault,
+                          (unsigned int)measurement.rawRtd);
+        sensorReady = false;
+      }
+      if (length > 0 && (uint32_t)length < sizeof(message)) {
+        Uart1_Send((const uint8_t *)message, (uint32_t)length);
+      }
+
+      /* The same 1-second LPIT tick also samples the displacement sensor. */
+      displacement_measurement_t displacement;
+      status_t adcStatus = STATUS_SUCCESS;
+      if (!displacementReady) {
+        adcStatus = Displacement_Init();
+        displacementReady = (adcStatus == STATUS_SUCCESS);
+      }
+      if (displacementReady) {
+        adcStatus = Displacement_Read(&displacement);
+      }
+      if (adcStatus == STATUS_SUCCESS) {
+        int32_t position = displacement.positionTenthMm;
+        uint32_t magnitude = (uint32_t)(position < 0 ? -position : position);
+        const char *range = displacement.currentUa < 4000U ? "LOW" :
+                            (displacement.currentUa > 20000U ? "HIGH" : "OK");
+        length = snprintf(message, sizeof(message),
+                          "Displacement: %s%lu.%lu mm | V=%lu.%03lu V I=%lu.%03lu mA ADC=%u [%s]\r\n",
+                          position < 0 ? "-" : "",
+                          (unsigned long)(magnitude / 10U), (unsigned long)(magnitude % 10U),
+                          (unsigned long)(displacement.voltageMv / 1000U),
+                          (unsigned long)(displacement.voltageMv % 1000U),
+                          (unsigned long)(displacement.currentUa / 1000U),
+                          (unsigned long)(displacement.currentUa % 1000U),
+                          (unsigned int)displacement.raw, range);
+      } else {
+        displacementReady = false;
+        length = snprintf(message, sizeof(message), "Displacement ADC error=%u\r\n",
+                          (unsigned int)adcStatus);
+      }
+      if (length > 0 && (uint32_t)length < sizeof(message)) {
+        Uart1_Send((const uint8_t *)message, (uint32_t)length);
+      }
+    }
+  }
+
+  /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
+  /*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/
+  #ifdef PEX_RTOS_START
+    PEX_RTOS_START();                  /* Startup of the selected RTOS. Macro is defined by the RTOS component. */
+  #endif
+  /*** End of RTOS startup code.  ***/
+  /*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
+  for(;;) {
+    if(exit_code != 0) {
+      break;
+    }
+  }
+  return exit_code;
+  /*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
+} /*** End of main routine. DO NOT MODIFY THIS TEXT!!! ***/

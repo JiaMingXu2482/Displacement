@@ -1,0 +1,34 @@
+# Build outputs
+Debug_FLASH/**/*.o
+Debug_FLASH/**/*.d
+Debug_FLASH/**/*.elf
+Debug_FLASH/**/*.map
+Debug_FLASH/**/*.siz
+Debug_FLASH/**/*.args
+Debug_FLASH/Generated_Code/
+Debug_FLASH/Project_Settings/
+Debug_FLASH/SDK/
+Debug_FLASH/Sources/
+Debug_FLASH/new_project.*
+tmp/*.elf
+tmp/*.map
+
+# Archives
+*.rar
+*.zip
+*.7z
+
+# Editor / OS
+.vscode/
+.settings/
+ProcessorExpert.pe.bak
+*~
+Thumbs.db
+desktop.ini
+
+# Python
+__pycache__/
+*.pyc
+
+# Backup folders
+Documentation/backup_*/

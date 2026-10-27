@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1060" viewBox="0 0 1900 1060">
+<rect width="1900" height="1060" fill="white"/>
+<text x="487.5" y="84" font-family="Microsoft YaHei, sans-serif" font-size="44" fill="#162438">三线制 4–20 mA 位移传感器 → S32K144 ADC</text>
+<rect x="350" y="180" width="350" height="400" fill="#f4f7fb" stroke="#263445" stroke-width="3"/>
+<text x="430.0" y="323" font-family="Microsoft YaHei, sans-serif" font-size="38" fill="#162438">位移传感器</text>
+<text x="413.0" y="372" font-family="Microsoft YaHei, sans-serif" font-size="27" fill="#162438">三线制 / 4–20 mA</text>
+<text x="375" y="231" font-family="Microsoft YaHei, sans-serif" font-size="26" fill="#b32630">红线 V+</text>
+<text x="375" y="511" font-family="Microsoft YaHei, sans-serif" font-size="26" fill="#162438">黑线 0V</text>
+<polyline points="60,250 350,250" fill="none" stroke="#b32630" stroke-width="4" stroke-linejoin="round"/>
+<text x="60" y="188" font-family="Microsoft YaHei, sans-serif" font-size="28" fill="#162438">外部电源正极</text>
+<text x="60" y="230" font-family="Microsoft YaHei, sans-serif" font-size="30" fill="#b32630">+12–24 V¹</text>
+<polyline points="350,520 270,520 270,800 1600,800 1600,580" fill="none" stroke="#263445" stroke-width="4" stroke-linejoin="round"/>
+<polyline points="60,800 270,800" fill="none" stroke="#263445" stroke-width="4" stroke-linejoin="round"/>
+<text x="60" y="868" font-family="Microsoft YaHei, sans-serif" font-size="28" fill="#162438">电源负极（0 V）</text>
+<circle cx="270" cy="800" r="7" fill="#263445"/>
+<rect x="1280" y="180" width="530" height="400" fill="#f4f7fb" stroke="#263445" stroke-width="3"/>
+<text x="1411.0" y="261" font-family="Microsoft YaHei, sans-serif" font-size="36" fill="#162438">S32K144 开发板</text>
+<polyline points="700,400 1000,400 1280,400" fill="none" stroke="#176fb0" stroke-width="4" stroke-linejoin="round"/>
+<text x="745" y="377" font-family="Microsoft YaHei, sans-serif" font-size="27" fill="#176fb0">灰线 IOUT</text>
+<text x="1040" y="378" font-family="Microsoft YaHei, sans-serif" font-size="28" fill="#176fb0">A：0.4–2.0 V</text>
+<text x="1300" y="395" font-family="Microsoft YaHei, sans-serif" font-size="30" fill="#162438">PTB3 / ADC0_SE7</text>
+<text x="1300" y="450" font-family="Microsoft YaHei, sans-serif" font-size="25" fill="#162438">ADC 测量节点 A 相对 GND 的电压</text>
+<text x="1560" y="560" font-family="Microsoft YaHei, sans-serif" font-size="25" fill="#162438">GND</text>
+<circle cx="1000" cy="400" r="7" fill="#263445"/>
+<polyline points="1000,400 1000,480" fill="none" stroke="#176fb0" stroke-width="4" stroke-linejoin="round"/>
+<rect x="965" y="480" width="70" height="160" fill="white" stroke="#263445" stroke-width="3"/>
+<polyline points="1000,640 1000,800" fill="none" stroke="#263445" stroke-width="4" stroke-linejoin="round"/>
+<text x="1070" y="537" font-family="Microsoft YaHei, sans-serif" font-size="32" fill="#162438">R1 = 100 Ω</text>
+<text x="1070" y="577" font-family="Microsoft YaHei, sans-serif" font-size="27" fill="#162438">采样电阻</text>
+<text x="865" y="564" font-family="Microsoft YaHei, sans-serif" font-size="29" fill="#176fb0">I ↓</text>
+<circle cx="1000" cy="800" r="7" fill="#263445"/>
+<text x="1130" y="768" font-family="Microsoft YaHei, sans-serif" font-size="28" fill="#162438">公共地 GND</text>
+<polyline points="1000,800 1000,825" fill="none" stroke="#263445" stroke-width="4" stroke-linejoin="round"/>
+<polyline points="965,825 1035,825" fill="none" stroke="#263445" stroke-width="4" stroke-linejoin="round"/>
+<polyline points="976,838 1024,838" fill="none" stroke="#263445" stroke-width="4" stroke-linejoin="round"/>
+<polyline points="987,851 1013,851" fill="none" stroke="#263445" stroke-width="4" stroke-linejoin="round"/>
+<text x="517.0" y="944" font-family="Microsoft YaHei, sans-serif" font-size="34" fill="#162438">U_ADC = I_OUT × R1 = 4–20 mA × 100 Ω = 0.4–2.0 V</text>
+<text x="581.5" y="993" font-family="Microsoft YaHei, sans-serif" font-size="28" fill="#162438">ADC 接节点 A；电阻下端、电源负极和开发板 GND 共地。</text>
+<text x="608.5" y="1033" font-family="Microsoft YaHei, sans-serif" font-size="23" fill="#162438">¹ 传感器供电以铭牌为准；开发板由其正常电源供电（图中省略）。</text>
+</svg>
